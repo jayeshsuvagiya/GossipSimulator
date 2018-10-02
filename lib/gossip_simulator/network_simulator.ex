@@ -24,6 +24,7 @@ defmodule GossipSimulator.NetworkSimulator do
       "2D" -> top_2D(non,algo)
       "torus" -> top_torus(non,algo)
       "3D" -> top_3D(non,algo)
+      "rand2D" -> top_rand2D(non,algo)
       _ -> process(:help)
     end
 
@@ -87,6 +88,30 @@ defmodule GossipSimulator.NetworkSimulator do
           GenServer.cast(pid, {:set_neighbours, [Enum.at(nodes, i - 1), Enum.at(nodes, i + 1),Enum.random(nodes)]})
           #IO.puts("#{i}-#{i - 1},#{i + 1}")
       end
+    end)
+    nodes
+  end
+
+  def top_rand2D(non,algo) do
+    w = round(:math.sqrt(non))
+    nodes = generatenodes(w * w,algo)
+    points = Enum.map(nodes, fn _pid ->
+             x=:rand.uniform()
+             y=:rand.uniform()
+             {x,y} end)
+   # IO.inspect(points)
+    Enum.with_index(nodes)|> Enum.each(fn {pid,i} ->
+
+        {a,b} = Enum.at(points,i)
+          neigh=Enum.with_index(points) |> Enum.map( fn {{x,y},k} ->
+          d1 = a-x
+          d2 = b-y
+          if (d1 != 0) and (d2 != 0) and (:math.sqrt((d1*d1)+(d2*d2))<=0.1) do
+            Enum.at(nodes,k)
+                                              end
+        end)
+      #  IO.inspect Enum.filter(test, & !is_nil(&1))
+        GenServer.cast(pid, {:set_neighbours, Enum.filter(neigh, & !is_nil(&1))})
     end)
     nodes
   end
@@ -348,7 +373,7 @@ defmodule GossipSimulator.NetworkSimulator do
 
   def process(:help) do
     IO.puts("""
-    usage:  mix app.start <n> <topology> <algorithm>
+    usage:  mix run --no-halt proj2.exs <n> <topology> <algorithm>
     Where n is number of nodes.
     Topology can be full|3D|rand2D|torus|line|imline.
     Algorithm cab be gossip|push-sum.

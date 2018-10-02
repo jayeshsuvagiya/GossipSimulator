@@ -54,7 +54,7 @@ defmodule GossipSimulator.Application do
 
   def process(:help) do
     IO.puts("""
-    usage:  mix app.start <n> <topology> <algorithm>
+    usage:  mix run --no-halt proj2.exs <n> <topology> <algorithm>
     Where n is number of nodes.
     Topology can be full|3D|rand2D|torus|line|imline.
     Algorithm cab be gossip|push-sum.

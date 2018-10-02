@@ -31,9 +31,12 @@ defmodule GossipSimulator.NodeG do
 
   def handle_cast({:do_one_round,msg},state) do
     {nb,count,msg} = state
+
+    if length(nb)>0 do
     rand_neigh = Enum.random(nb)
     #Logger.debug("#{inspect(self())} - Message sent to #{inspect(rand_neigh)}")
     GenServer.cast(rand_neigh, {:rec_message,msg})
+    end
 
     GenServer.cast(self(), {:do_one_round,msg})
     {:noreply, {nb,count,msg}}

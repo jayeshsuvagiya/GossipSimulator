@@ -32,16 +32,18 @@ defmodule GossipSimulator.NodePS do
     ro = s/w
     rn = ns/nw
     newcount = cond  do
-      abs(ro-rn)<=0.0000000001 -> count+1
+      abs(ro-rn)<=0.00001 -> count+1
       true -> count
     end
 
     ns=ns/2
     nw=nw/2
 
+    if length(nodes)>0 do
     rand_neigh = Enum.random(nodes)
     #Logger.debug("#{inspect(self())} - Message sent to #{inspect(rand_neigh)}")
     GenServer.cast(rand_neigh, {:rec_message,ns,nw})
+    end
     #Logger.debug("#{inspect(self())} - Message Received")
     {:noreply, {nodes,newcount,ns,nw}}
   end
