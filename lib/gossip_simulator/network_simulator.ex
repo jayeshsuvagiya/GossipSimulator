@@ -31,7 +31,8 @@ defmodule GossipSimulator.NetworkSimulator do
     GossipSimulator.Converge.start_it(start_time)
     case algo do
       "gossip" -> GenServer.cast(Enum.random(nodes),{:rec_message,"This is a rumor"})
-      "push-sum" -> IO.puts "push-sum"
+      "push-sum" -> Enum.with_index(nodes) |> Enum.each(fn {pid, i} -> GenServer.cast(pid,{:set_sum,i+1}) end)
+                    GenServer.cast(Enum.random(nodes),{:rec_message,0,0})
       _ -> process(:help)
     end
     #IO.inspect nodess
@@ -349,10 +350,9 @@ defmodule GossipSimulator.NetworkSimulator do
     IO.puts("""
     usage:  mix app.start <n> <topology> <algorithm>
     Where n is number of nodes.
-    Topology can be full|3D|rand2D|sphere|line|imp2D.
+    Topology can be full|3D|rand2D|torus|line|imline.
     Algorithm cab be gossip|push-sum.
     """)
-
     System.halt(0)
   end
 

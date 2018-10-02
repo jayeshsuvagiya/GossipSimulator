@@ -56,7 +56,7 @@ defmodule GossipSimulator.Application do
     IO.puts("""
     usage:  mix app.start <n> <topology> <algorithm>
     Where n is number of nodes.
-    Topology can be full|3D|rand2D|sphere|line|imp2D.
+    Topology can be full|3D|rand2D|torus|line|imline.
     Algorithm cab be gossip|push-sum.
     """)
 
