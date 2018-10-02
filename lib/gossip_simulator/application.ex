@@ -41,6 +41,7 @@ defmodule GossipSimulator.Application do
     children = [
       # Starts a worker by calling: GossipSimulator.Worker.start_link(arg)
       # {GossipSimulator.Worker, arg},
+      GossipSimulator.Converge,
       {GossipSimulator.NetworkSimulator, {non, top, algo, []}},
       GossipSimulator.NetworkSupervisor
     ]
