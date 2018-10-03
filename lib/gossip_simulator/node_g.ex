@@ -11,8 +11,9 @@ defmodule GossipSimulator.NodeG do
     {:ok, {[], 0, nil}}
   end
 
-  def handle_cast({:set_neighbours, nb}, state) do
-    {:noreply, {nb, 0, nil}}
+  def handle_cast({:set_neighbours, nb}, _state) do
+    nodes = nb |> Enum.with_index |> Map.new(fn {k, v}-> {v, k} end)
+    {:noreply, {nodes, 0, nil}}
   end
 
   def handle_cast({:rec_message,msg},state) do
@@ -32,8 +33,8 @@ defmodule GossipSimulator.NodeG do
   def handle_cast({:do_one_round,msg},state) do
     {nb,count,msg} = state
 
-    if length(nb)>0 do
-    rand_neigh = Enum.random(nb)
+    if map_size(nb)>0 do
+      {_i,rand_neigh} = Enum.random(nb)
     #Logger.debug("#{inspect(self())} - Message sent to #{inspect(rand_neigh)}")
     GenServer.cast(rand_neigh, {:rec_message,msg})
     end

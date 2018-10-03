@@ -12,7 +12,8 @@ defmodule GossipSimulator.NodePS do
   end
 
   def handle_cast({:set_neighbours, nb}, {_nodes,count,s,w}) do
-    {:noreply, {nb,count,s,w}}
+    nodes = nb |> Enum.with_index |> Map.new(fn {k, v}-> {v, k} end)
+    {:noreply, {nodes,count,s,w}}
   end
 
   def handle_cast({:set_sum, sum}, {nodes,count,_s,w}) do
@@ -39,8 +40,8 @@ defmodule GossipSimulator.NodePS do
     ns=ns/2
     nw=nw/2
 
-    if length(nodes)>0 do
-    rand_neigh = Enum.random(nodes)
+    if map_size(nodes)>0 do
+      {_i,rand_neigh} = Enum.random(nodes)
     #Logger.debug("#{inspect(self())} - Message sent to #{inspect(rand_neigh)}")
     GenServer.cast(rand_neigh, {:rec_message,ns,nw})
     end
