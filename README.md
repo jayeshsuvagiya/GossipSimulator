@@ -2,7 +2,7 @@
 #Description
 A simulation of large network of nodes connected in different topologies. Gossip Algorithm is used to pass a message to entire network or to calculate average of numbers.
 
-#Working topologies and algorithms – Largest network
+# Working topologies and algorithms – Largest network
 Line topology – Gossip 10000
 Imperfect line topology – Gossip 10000
 Random 2D topology – Gossip 5000
@@ -16,10 +16,10 @@ Torus topology – Pushsum 5000
 3D grid topology – Pushsum 1000
 Full network topology – Pushsum 5000
 
-#Project Execution –
+# Project Execution –
 mix run --no-halt proj2.exs 10000 imline gossip
 
-#usage: 
+# usage: 
 mix run --no-halt proj2.exs <n> <topology> <algorithm>
 Where n is number of nodes.
 Topology can be full|3D|2D|rand2D|torus|line|imline.
