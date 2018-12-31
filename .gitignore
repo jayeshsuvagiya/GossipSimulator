@@ -26,3 +26,5 @@ gossip_simulator-*.tar
 *.beam
 .idea
 
+readme.pdf
+Report.pdf

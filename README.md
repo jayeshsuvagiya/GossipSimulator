@@ -1,21 +1,27 @@
 # GossipSimulator
+#Description
+A simulation of large network of nodes connected in different topologies. Gossip Algorithm is used to pass a message to entire network or to calculate average of numbers.
 
-**TODO: Add description**
+#Working topologies and algorithms – Largest network
+Line topology – Gossip 10000
+Imperfect line topology – Gossip 10000
+Random 2D topology – Gossip 5000
+Torus topology – Gossip 5000
+3D grid topology – Gossip 5000
+Full network topology – Gossip 10000
+Line topology – Pushsum 10000
+Imperfect line topology – Pushsum 10000
+Random 2D topology – Pushsum 5000
+Torus topology – Pushsum 5000
+3D grid topology – Pushsum 1000
+Full network topology – Pushsum 5000
 
-## Installation
+#Project Execution –
+mix run --no-halt proj2.exs 10000 imline gossip
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `gossip_simulator` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:gossip_simulator, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/gossip_simulator](https://hexdocs.pm/gossip_simulator).
+#usage: 
+mix run --no-halt proj2.exs <n> <topology> <algorithm>
+Where n is number of nodes.
+Topology can be full|3D|2D|rand2D|torus|line|imline.
+Algorithm can be gossip|push-sum.
 
